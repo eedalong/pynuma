@@ -35,9 +35,6 @@ LIBNUMA.numa_available.restype = c_int
 LIBNUMA.numa_max_node.argtypes = []
 LIBNUMA.numa_max_node.restype = c_int
 
-LIBNUMA.numa_node_size64.argtypes = [c_int, POINTER(c_longlong)]
-LIBNUMA.numa_node_size64.restype = c_longlong
-
 LIBNUMA.numa_preferred.argtypes = []
 LIBNUMA.numa_preferred.restype = c_int
 
@@ -52,15 +49,6 @@ LIBNUMA.numa_get_interleave_mask.restype = POINTER(bitmask_t)
 
 LIBNUMA.numa_bitmask_clearall.argtypes = [POINTER(bitmask_t)]
 LIBNUMA.numa_bitmask_clearall.restype = POINTER(bitmask_t)
-
-LIBNUMA.copy_bitmask_to_nodemask.argtypes = [POINTER(bitmask_t), POINTER(nodemask_t)]
-LIBNUMA.copy_bitmask_to_nodemask.restype = c_void_p
-
-LIBNUMA.copy_nodemask_to_bitmask.argtypes = [POINTER(nodemask_t), POINTER(bitmask_t)]
-LIBNUMA.copy_nodemask_to_bitmask.restype = c_void_p
-
-LIBNUMA.numa_bitmask_free.argtypes = [POINTER(bitmask_t)]
-LIBNUMA.numa_bitmask_free.restype = c_void_p
 
 LIBNUMA.numa_allocate_nodemask.argtypes = []
 LIBNUMA.numa_allocate_nodemask.restype = POINTER(bitmask_t)
@@ -92,8 +80,35 @@ LIBNUMA.numa_distance.restype = c_int
 LIBNUMA.numa_parse_nodestring.argtypes = [c_char_p]
 LIBNUMA.numa_parse_nodestring.restype = POINTER(bitmask_t)
 
+LIBNUMA.numa_parse_cpustring.argtypes = [c_char_p]
+LIBNUMA.numa_parse_cpustring.restype = POINTER(bitmask_t)
+
+LIBNUMA.numa_node_size64.argtypes = [c_int, POINTER(c_longlong)]
+LIBNUMA.numa_node_size64.restype = c_longlong
+
+LIBNUMA.numa_allocate_cpumask.argtypes = []
+LIBNUMA.numa_allocate_cpumask.restype = POINTER(bitmask_t)
+
+LIBNUMA.numa_set_localalloc.argtypes = []
+LIBNUMA.numa_set_localalloc.restype = c_void_p
+
+LIBNUMA.numa_set_bind_policy.argtypes = [c_int]
+LIBNUMA.numa_set_bind_policy.restype = c_void_p
+
+LIBNUMA.numa_get_mems_allowed.argtypes = []
+LIBNUMA.numa_get_mems_allowed.restype = POINTER(bitmask_t)
+
+LIBNUMA.numa_distance.argtypes = [c_int, c_int]
+LIBNUMA.numa_distance.restype = c_int
+
+LIBNUMA.numa_node_of_cpu.argtypes = [c_int]
+LIBNUMA.numa_node_of_cpu.restype = c_int
+
+LIBNUMA.numa_node_to_cpus.argtypes = [c_int, POINTER(bitmask_t)]
+LIBNUMA.numa_node_to_cpus.restype = c_int
+
 # some global variables
-NUMA_NUM_AVALIABLE: int = LIBNUMA.numa_available()
+NUMA_NUM_AVALIABLE: int = LIBNUMA.numa_max_node()
 NUMA_AVALIABLE: bool = NUMA_NUM_AVALIABLE != -1
 if not NUMA_AVALIABLE:
     raise Exception("numa not avaliable")

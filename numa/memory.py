@@ -1,5 +1,9 @@
-from numa.init import *
+from numa.init import LIBNUMA
 from typing import List, Optional
+from ctypes import c_longlong, byref
+
+__all__ = ["get_allocation_allowed_nodes", "set_interleave_nodes", "set_local_alloc", "set_membind_nodes",
+           "get_membind_nodes", "get_allowed_nodes_num", "get_interleave_nodes", "set_membind_policy"]
 
 
 def get_interleave_nodes() -> List[int]:
@@ -26,5 +30,11 @@ def set_membind_policy(strict_policy: Optional[bool] = False) -> None:
     pass
 
 
-def allocation_allowed_nodes() -> List[int]:
+def get_allocation_allowed_nodes() -> List[int]:
     return []
+
+
+def node_memory_info(node: int) -> tuple:
+    free_size = c_longlong()
+    total_size = LIBNUMA.numa_node_size64(node, free_size)
+    return total_size, free_size.value

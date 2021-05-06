@@ -1,6 +1,10 @@
 from typing import List
-from numa.init import *
+from numa.init import LIBNUMA, NUMA_NUM_AVALIABLE
 import numa.utils as numa_utils
+
+__all__ = ["run_on_nodes", "run_on_all_nodes", "run_on_cpus", "run_on_all_cpus", "get_affinitive_cpus",
+           "get_affinitive_nodes", "get_preferred_node", "set_preferred_node", "get_allowed_nodes_num",
+           "get_allowed_cpus_num", "bind"]
 
 
 def run_on_nodes(*nodes):
@@ -9,7 +13,6 @@ def run_on_nodes(*nodes):
     :return:
     """
     nodes = list(set(nodes))
-    nodes = list(filter(lambda x: x < NUMA_NUM_AVALIABLE, nodes))
     if len(nodes) == 0:
         bitmask = LIBNUMA.numa_parse_nodestring(b"all")
         op_res = LIBNUMA.numa_run_on_node_mask(bitmask)
@@ -57,10 +60,11 @@ def run_on_all_cpus(pid: int):
 def get_affinitive_nodes() -> List[int]:
     result_mask_pointer = LIBNUMA.numa_get_run_node_mask()
     try:
-        bitmask = result_mask_pointer.contents
+        result_mask_pointer.contents
     except ValueError:
         raise Exception(f"get run nodes info failed")
-    return numa_utils.get_bitset_list(bitmask)
+    print("here")
+    return numa_utils.get_bitset_list(result_mask_pointer)
 
 
 def get_affinitive_cpus(pid: int) -> List[int]:
@@ -71,13 +75,26 @@ def get_affinitive_cpus(pid: int) -> List[int]:
 
 
 def bind(*nodes):
-    pass
+    nodes = list(set(nodes))
+    res = ",".join(list(map(str, nodes)))
+    c_string = bytes(res, "ascii")
+    bitmask = LIBNUMA.numa_parse_nodestring(c_string)
+    LIBNUMA.bind(bitmask)
 
 
-def get_prefer_node() -> int:
-    return 0
+def get_preferred_node() -> int:
+    return LIBNUMA.numa_preferred()
 
 
-def set_prefer_node() -> None:
-    pass
+def set_preferred_node(node: int) -> None:
+    LIBNUMA.numa_set_preferred(node)
+
+
+def get_allowed_cpus_num() -> int:
+    return LIBNUMA.numa_num_task_cpus()
+
+
+def get_allowed_nodes_num() -> int:
+    return LIBNUMA.numa_num_task_nodes()
+
 
