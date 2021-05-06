@@ -1,9 +1,9 @@
-from numa.init import LIBNUMA
+from numa import LIBNUMA
 from typing import List, Optional
 from ctypes import c_longlong, byref
 
 __all__ = ["get_allocation_allowed_nodes", "set_interleave_nodes", "set_local_alloc", "set_membind_nodes",
-           "get_membind_nodes", "get_allowed_nodes_num", "get_interleave_nodes", "set_membind_policy"]
+           "get_membind_nodes", "get_interleave_nodes", "set_membind_policy"]
 
 
 def get_interleave_nodes() -> List[int]:

@@ -1,4 +1,4 @@
-from numa.init import bitmask_t, LIBNUMA
+from numa import bitmask_t, LIBNUMA
 from typing import List
 
 

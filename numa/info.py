@@ -1,7 +1,5 @@
-from numa.init import LIBNUMA, NUMA_AVALIABLE
+from numa import LIBNUMA, NUMA_AVALIABLE
 from typing import Dict, List
-from ctypes import byref, c_longlong
-
 
 __all__ = ["numa_avaliable", "get_max_node", "get_max_possible_node", "get_num_configured_nodes",
            "get_num_configured_cpus", "numa_distance", "numa_hardware_info"]
