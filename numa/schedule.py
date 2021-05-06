@@ -1,5 +1,5 @@
 from typing import List
-from numa import LIBNUMA, NUMA_NUM_AVALIABLE
+from numa import LIBNUMA
 import numa.utils as numa_utils
 
 __all__ = ["run_on_nodes", "run_on_all_nodes", "run_on_cpus", "run_on_all_cpus", "get_affinitive_cpus",
