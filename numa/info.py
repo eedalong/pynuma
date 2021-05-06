@@ -1,4 +1,4 @@
-from numa import LIBNUMA, NUMA_AVALIABLE
+from numa import LIBNUMA
 from typing import Dict, List
 
 __all__ = ["numa_avaliable", "get_max_node", "get_max_possible_node", "get_num_configured_nodes",
@@ -9,7 +9,7 @@ def numa_avaliable():
     """
     :return: bool
     """
-    return NUMA_AVALIABLE
+    return LIBNUMA.numa_available() != -1
 
 
 def get_max_node() -> int:

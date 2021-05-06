@@ -109,12 +109,9 @@ LIBNUMA.numa_node_to_cpus.restype = c_int
 
 # some global variables
 NUMA_NUM_AVALIABLE: int = LIBNUMA.numa_max_node()
-NUMA_AVALIABLE: bool = NUMA_NUM_AVALIABLE != -1
-if not NUMA_AVALIABLE:
-    raise Exception("numa not avaliable")
 
 from . import memory
 from . import schedule
 from . import info
 
-__all__ = ["info", "memory", "schedule", "LIBNUMA", "NUMA_AVALIABLE", "NUMA_NUM_AVALIABLE", "bitmask_t"]
+__all__ = ["info", "memory", "schedule", "LIBNUMA", "bitmask_t"]
