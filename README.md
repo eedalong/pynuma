@@ -1,2 +1,3 @@
-# pynuma
-Interface to numa Linux library
+# PyNuma
+Python Interface to numa Linux library
+
