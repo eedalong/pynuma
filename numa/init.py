@@ -1,27 +1,18 @@
 from ctypes import *
-from ctypes_configure import configure
 from ctypes.util import find_library
 
-def __setup__():
-    class CConfigure(object):
-        _compilation_info_ = configure.ExternalCompilationInfo(
-            includes=['sched.h', 'numa.h'],
-            libraries=[]
-            )
 
-    for cname in ['NUMA_NUM_NODES', '__CPU_SETSIZE', '__NCPUBITS']:
-        if cname.startswith('__'):
-            pyname = cname[2:]
-        else:
-            pyname = cname
-        setattr(CConfigure, pyname, configure.ConstantInteger(cname))
-
-    return configure.configure(CConfigure)
+def roundup(a: int, b: int) -> int:
+    assert b > 0
+    return (a + b - 1) // b
 
 
 # setup
-globals().update(__setup__())
 
+LIBNUMA = CDLL(find_library("numa"))
+
+MAX_NUMNODES = LIBNUMA.numa_num_possible_nodes()
+NR_CPUS = LIBNUMA.numa_num_possible_cpus()
 
 class bitmask_t(Structure):
     _fields_ = [
@@ -31,14 +22,11 @@ class bitmask_t(Structure):
 
 
 class nodemask_t(Structure):
-    _fields_ = [('n', c_ulong * (NUMA_NUM_NODES/(sizeof(c_ulong)*8)))]
+    _fields_ = [('n', c_ulong * roundup(MAX_NUMNODES, sizeof(c_ulong)))]
 
 
 class cpu_set_t(Structure):
-    _fields_ = [('__bits', c_ulong * (CPU_SETSIZE / NCPUBITS))]
-
-
-LIBNUMA = CDLL(find_library("numa"))
+    _fields_ = [('__bits', c_ulong * roundup(NR_CPUS, sizeof(c_ulong)))]
 
 
 LIBNUMA.numa_available.argtypes = []
