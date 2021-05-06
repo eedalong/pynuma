@@ -11,7 +11,7 @@ def roundup(a: int, b: int) -> int:
 
 LIBNUMA = CDLL(find_library("numa"))
 
-MAX_NUMNODES = LIBNUMA.numa_num_possible_nodes()
+MAX_NUMANODES = LIBNUMA.numa_num_possible_nodes()
 NR_CPUS = LIBNUMA.numa_num_possible_cpus()
 
 class bitmask_t(Structure):
@@ -22,11 +22,11 @@ class bitmask_t(Structure):
 
 
 class nodemask_t(Structure):
-    _fields_ = [('n', c_ulong * roundup(MAX_NUMNODES, sizeof(c_ulong)))]
+    _fields_ = [('n', c_ulong * roundup(MAX_NUMANODES, sizeof(c_ulong) * 8))]
 
 
 class cpu_set_t(Structure):
-    _fields_ = [('__bits', c_ulong * roundup(NR_CPUS, sizeof(c_ulong)))]
+    _fields_ = [('__bits', c_ulong * roundup(NR_CPUS, sizeof(c_ulong) * 8))]
 
 
 LIBNUMA.numa_available.argtypes = []
@@ -92,11 +92,10 @@ LIBNUMA.numa_distance.restype = c_int
 LIBNUMA.numa_parse_nodestring.argtypes = [c_char_p]
 LIBNUMA.numa_parse_nodestring.restype = POINTER(bitmask_t)
 
-
-
 # some global variables
-NUMA_AVALIABLE: bool = (LIBNUMA.numa_avaliable() != -1)
+NUMA_NUM_AVALIABLE: int = LIBNUMA.numa_available()
+NUMA_AVALIABLE: bool = NUMA_NUM_AVALIABLE != -1
 if not NUMA_AVALIABLE:
     raise Exception("numa not avaliable")
-MAX_NODE: int = LIBNUMA.numa_max_node()
+
 

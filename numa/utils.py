@@ -16,8 +16,13 @@ def node_list_to_node_mask(node_lst: List[int]):
     :return: nodemask_t
     """
     res = nodemask_t()
-    valid_node_list = list(filter(lambda x: x <= MAX_NODE, node_lst))
+    valid_node_list = list(filter(lambda x: x <= MAX_NUMANODES, node_lst))
     clear_node_mask(res)
     for node in valid_node_list:
         res.n[node/8/sizeof(c_ulong)] |= 1 << (node % (8 * sizeof(c_ulong)))
     return res
+
+
+def get_bitset_list(bitmask: bitmask_t) -> List[int]:
+    return list(filter(lambda node: LIBNUMA.numa_bitmask_isbitset(bitmask, node) != 0, range(bitmask.size)))
+
