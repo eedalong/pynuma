@@ -12,4 +12,4 @@ print(numa.schedule.get_affinitive_cpus(os.getpid()))
 numa.schedule.run_on_all_cpus(os.getpid())
 print(numa.schedule.get_affinitive_cpus(os.getpid()))
 
-print(numa.memory.node_memmory_info(0))
+print(numa.memory.node_memory_info(0))
