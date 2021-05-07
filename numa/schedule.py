@@ -63,7 +63,6 @@ def get_affinitive_nodes() -> List[int]:
         result_mask_pointer.contents
     except ValueError:
         raise Exception(f"get run nodes info failed")
-    print("here")
     return numa_utils.get_bitset_list(result_mask_pointer)
 
 
