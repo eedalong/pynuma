@@ -1,5 +1,6 @@
 from numa import LIBNUMA
 from typing import Dict, List
+import numa.utils as numa_utils
 
 __all__ = ["numa_avaliable", "get_max_node", "get_max_possible_node", "get_num_configured_nodes", "get_num_configured_cpus", "numa_distance", "numa_hardware_info"]
 
@@ -49,13 +50,18 @@ def numa_hardware_info() -> Dict:
     return {"numa_node_distance": numa_node_distance, "node_cpu_info": node_cpu_info}
 
 
-
 def cpu_to_node(cpu: int) -> int:
     return LIBNUMA.numa_node_of_cpu(cpu)
 
 
 def node_to_cpus(node: int) -> List[int]:
-    return [ret for ret in range(get_num_configured_cpus()) if cpu_to_node(ret) == node]
+    cpu_mask = LIBNUMA.numa_allocate_cpumask()
+    LIBNUMA.numa_bitmask_clearall(cpu_mask)
+    res = LIBNUMA.numa_node_to_cpus(node, cpu_mask)
+    if res == 0:
+        return numa_utils.get_bitset_list(cpu_mask)
+    else:
+        return []
 
 
 
