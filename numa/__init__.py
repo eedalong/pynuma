@@ -107,6 +107,9 @@ LIBNUMA.numa_node_of_cpu.restype = c_int
 LIBNUMA.numa_node_to_cpus.argtypes = [c_int, POINTER(bitmask_t)]
 LIBNUMA.numa_node_to_cpus.restype = c_int
 
+LIBNUMA.numa_set_membind_balancing.argtypes = [POINTER(bitmask_t)]
+LIBNUMA.numa_set_membind_balancing.restype = c_void_p
+
 # some global variables
 NUMA_NUM_AVALIABLE: int = LIBNUMA.numa_max_node()
 
