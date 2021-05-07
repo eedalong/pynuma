@@ -28,12 +28,11 @@ def set_interleave_nodes(*nodes) -> None:
 
 
 def set_local_alloc(strict_policy: Optional[bool] = False) -> None:
-    set_membind_policy(strict_policy)
     LIBNUMA.set_local_alloc()
+    set_membind_policy(strict_policy)
 
 
 def set_membind_nodes(strict_policy: Optional[bool] = False, *nodes) -> None:
-    set_membind_policy(strict_policy)
     nodes = list(set(nodes))
     res = ",".join(list(map(str, nodes)))
     c_string = bytes(res, "ascii")
@@ -41,6 +40,7 @@ def set_membind_nodes(strict_policy: Optional[bool] = False, *nodes) -> None:
     op_res = LIBNUMA.numa_set_membind(bitmask)
     if op_res == -1:
         raise Exception(f"set membind nodes {res} failed")
+    set_membind_policy(strict_policy)
 
 
 def get_membind_nodes() -> List[int]:
@@ -53,7 +53,10 @@ def get_membind_nodes() -> List[int]:
 
 
 def set_membind_policy(strict_policy: Optional[bool] = False) -> None:
-    strict_policy = c_int()
+    if strict_policy == False:
+        strict_policy = 0
+    else:
+        strict_policy = 1
     LIBNUMA.numa_set_bind_policy(strict_policy)
 
 
