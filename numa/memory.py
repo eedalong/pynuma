@@ -76,7 +76,6 @@ def node_memory_info(node: int) -> tuple:
 
 
 def set_membind_balancing(strict_policy: Optional[bool] = False, *nodes) -> List[int]:
-    set_membind_policy(strict_policy)
     nodes = list(set(nodes))
     res = ",".join(list(map(str, nodes)))
     c_string = bytes(res, "ascii")
@@ -84,3 +83,4 @@ def set_membind_balancing(strict_policy: Optional[bool] = False, *nodes) -> List
     op_res = LIBNUMA.numa_set_membind_balancing(bitmask)
     if op_res == -1:
         raise Exception(f"set membind balancing nodes {res} failed")
+    set_membind_policy(strict_policy)
