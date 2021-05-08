@@ -78,7 +78,8 @@ def bind(*nodes):
     res = ",".join(list(map(str, nodes)))
     c_string = bytes(res, "ascii")
     bitmask = LIBNUMA.numa_parse_nodestring(c_string)
-    LIBNUMA.bind(bitmask)
+    LIBNUMA.numa_run_on_node_mask(bitmask)
+    LIBNUMA.numa_set_membind(bitmask)
 
 
 def get_preferred_node() -> int:
