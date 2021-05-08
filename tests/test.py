@@ -37,6 +37,41 @@ class TestSchedule(unittest.TestCase):
         preferred_node = schedule.get_preferred_node()
         self.assertEqual(preferred_node, self.max_node)
 
+    def test_interleave_nodes(self):
+        nodes_set = list(filter(lambda x: x % 2 == 1, list(range(self.max_node + 1))))
+        memory.set_interleave_nodes(*nodes_set)
+        nodes_get = memory.get_interleave_nodes()
+        self.assertEqual(nodes_set, nodes_get)
+    
+    def test_membind_nodes(self):
+        nodes_set = list(filter(lambda x: x % 2 == 1, list(range(self.max_node + 1))))
+        memory.set_membind_nodes(False, *nodes_set)
+        nodes_get = memory.get_membind_nodes()
+        self.assertEqual(nodes_set, nodes_get)
+    
+    def test_local_alloc(self):
+        schedule.set_preferred_node(self.max_node)
+        self.assertEqual(schedule.get_preferred_node(), self.max_node)
+        memory.set_local_alloc(0)
+        preferred_node = schedule.get_preferred_node()
+        local_node = 0
+        self.assertEqual(preferred_node, local_node)
+
+    def test_get_mem_allowed(self):
+        nodes_get = memory.get_allocation_allowed_nodes()
+        nodes = list(range(self.max_node+1))
+        self.assertEqual(nodes_get, nodes)
+    
+    def test_node_info(self):
+        node_info = memory.node_memory_info(0)
+        for i in range(self.max_node + 1):
+            self.assertFalse(node_info[i] == -1)
+
+    def test_set_policy(self):
+        memory.set_membind_nodes(True, *[self.max_node])
+        nodes_get = memory.get_membind_nodes()
+        self.assertEqual([self.max_node], nodes_get)
+
 
 if __name__ == "__main__":
     unittest.main()

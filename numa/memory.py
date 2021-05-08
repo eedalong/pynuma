@@ -61,7 +61,7 @@ def set_membind_policy(strict_policy: Optional[bool] = False) -> None:
 
 
 def get_allocation_allowed_nodes() -> List[int]:
-    result_nodes_pointer = LIBNUMA.get_allocation_allowed_nodes()
+    result_nodes_pointer = LIBNUMA.numa_get_mems_allowed()
     try:
         result_nodes_pointer.contents
     except ValueError:
@@ -73,14 +73,3 @@ def node_memory_info(node: int) -> tuple:
     free_size = c_longlong()
     total_size = LIBNUMA.numa_node_size64(node, free_size)
     return total_size, free_size.value
-
-
-def set_membind_balancing(strict_policy: Optional[bool] = False, *nodes) -> List[int]:
-    nodes = list(set(nodes))
-    res = ",".join(list(map(str, nodes)))
-    c_string = bytes(res, "ascii")
-    bitmask = LIBNUMA.numa_parse_nodestring(c_string)
-    op_res = LIBNUMA.numa_set_membind_balancing(bitmask)
-    if op_res == -1:
-        raise Exception(f"set membind balancing nodes {res} failed")
-    set_membind_policy(strict_policy)
