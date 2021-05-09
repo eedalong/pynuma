@@ -35,9 +35,9 @@ def numa_hardware_info() -> Dict:
     """
     # handle numa node distance
     numa_node_distance = []
-    for i in range(get_num_configured_nodes())[::-1]:
+    for i in range(get_num_configured_nodes()):
         tmp_distance = []
-        for j in range(get_num_configured_nodes())[::-1]:
+        for j in range(get_num_configured_nodes()):
             tmp_distance.append(numa_distance(i, j))
         numa_node_distance.append(tmp_distance)
 
