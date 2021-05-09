@@ -4,11 +4,11 @@ def read(fname):
     with open(fname, 'r') as f:
         return f.read()
 
-setup(name             = 'python-numa',
+setup(name             = 'py-libnuma',
       description      = 'Python libnuma ctypes wrapper',
       long_description = read('README.md'),
       py_modules       = ['numa'],
-      version          = '0.1',
+      version          = '1.0',
       author           = 'Xiulong Yuan, Zhan Lu, Zheng Zeng',
       author_email     = 'yuanxl19@mails.tsinghua.edu.cn, lu-z18@mails.tsinghua.edu.cn, zengz17@mails.tsinghua.edu.cn',
       url              = 'https://github.com/eedalong/pynuma',
