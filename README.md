@@ -20,7 +20,7 @@ systems's hardware with these 3 modules respectively. For more information about
 If you want a certain process with `pid` to run on specific cpus, you can use `numa.schedule` like this
 
     from numa import schedule
-    scedule.run_on_cpus(pid, 1,3,4,6)
+    schedule.run_on_cpus(pid, 1,3,4,6)
 
 
 ## memory
