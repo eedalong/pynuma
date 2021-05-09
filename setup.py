@@ -4,7 +4,7 @@ def read(fname):
     with open(fname, 'r') as f:
         return f.read()
 
-setup(name             = 'py-libnuma',
+setup(name             = 'py3-libnuma',
       description      = 'Python libnuma ctypes wrapper',
       long_description = read('README.md'),
       py_modules       = ['numa'],
