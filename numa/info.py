@@ -25,7 +25,6 @@ def get_num_configured_cpus() -> int:
     return LIBNUMA.numa_num_configured_cpus()
 
 
-# TODO: exception handle
 def numa_distance(node1: int, node2: int) -> int:
     return LIBNUMA.numa_distance(node1, node2)
 
