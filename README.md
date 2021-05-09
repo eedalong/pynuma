@@ -1,12 +1,12 @@
-# py3-libnuma
-py3-libnuma is python3 interface to numa Linux library so that you can set task affinity and memory affinity in python
+# py-libnuma
+py-libnuma is python3 interface to numa Linux library so that you can set task affinity and memory affinity in python
 level for your process which can help you to improve your code's performence.
 
 # Installation
-    pip install py3-libnuma
+    pip install py-libnuma
 
 # Usage
-py3-libnuma categorize libnuma's apis into 3 groups :`memory`, `schedule` and `info`. You can set your tasks' cpu affinity, memory affinity and get information about your
+py-libnuma categorize libnuma's apis into 3 groups :`memory`, `schedule` and `info`. You can set your tasks' cpu affinity, memory affinity and get information about your
 systems's hardware with these 3 modules respectively. For more information about APIs, you can refer to [API.md](https://github.com/eedalong/pynuma/blob/main/API.md) in github
 
 

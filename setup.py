@@ -4,9 +4,10 @@ def read(fname):
     with open(fname, 'r') as f:
         return f.read()
 
-setup(name             = 'py3-libnuma',
-      description      = 'Python libnuma ctypes wrapper',
+setup(name             = 'py-libnuma',
+      description      = 'Python3 libnuma ctypes wrapper',
       long_description = read('README.md'),
+      long_description_content_type="text/markdown",
       py_modules       = ['numa'],
       version          = '1.0',
       author           = 'Xiulong Yuan, Zhan Lu, Zheng Zeng',
