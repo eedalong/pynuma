@@ -37,6 +37,11 @@ class TestSchedule(unittest.TestCase):
         preferred_node = schedule.get_preferred_node()
         self.assertEqual(preferred_node, self.max_node)
 
+class TestMemory(unittest.TestCase):
+    def setUp(self):
+        self.max_node = info.get_max_node()
+        self.total_cpu_num = os.cpu_count()
+
     def test_interleave_nodes(self):
         nodes_set = list(filter(lambda x: x % 2 == 1, list(range(self.max_node + 1))))
         memory.set_interleave_nodes(*nodes_set)
@@ -58,9 +63,9 @@ class TestSchedule(unittest.TestCase):
         self.assertEqual(preferred_node, local_node)
 
     def test_get_mem_allowed(self):
+        memory.set_membind_nodes(True, *[self.max_node])
         nodes_get = memory.get_allocation_allowed_nodes()
-        nodes = list(range(self.max_node+1))
-        self.assertEqual(nodes_get, nodes)
+        self.assertEqual(nodes_get, [self.max_node])
     
     def test_node_info(self):
         node_info = memory.node_memory_info(0)
