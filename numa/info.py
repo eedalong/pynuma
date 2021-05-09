@@ -43,7 +43,7 @@ def numa_hardware_info() -> Dict:
 
     # handle cpu info
     node_cpu_info = {}
-    for i in range(get_num_configured_cpus()):
+    for i in range(get_num_configured_nodes()):
         node_cpu_info[i] = node_to_cpus(i)
 
     return {"numa_node_distance": numa_node_distance, "node_cpu_info": node_cpu_info}
