@@ -35,15 +35,15 @@ def numa_hardware_info() -> Dict:
     """
     # handle numa node distance
     numa_node_distance = []
-    for i in range(get_num_configured_nodes())[::-1]:
+    for i in range(get_num_configured_nodes()):
         tmp_distance = []
-        for j in range(get_num_configured_nodes())[::-1]:
+        for j in range(get_num_configured_nodes()):
             tmp_distance.append(numa_distance(i, j))
         numa_node_distance.append(tmp_distance)
 
     # handle cpu info
     node_cpu_info = {}
-    for i in range(get_num_configured_cpus()):
+    for i in range(get_num_configured_nodes()):
         node_cpu_info[i] = node_to_cpus(i)
 
     return {"numa_node_distance": numa_node_distance, "node_cpu_info": node_cpu_info}
