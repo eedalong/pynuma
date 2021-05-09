@@ -36,6 +36,8 @@ class TestSchedule(unittest.TestCase):
         schedule.bind(self.max_node)
         preferred_node = schedule.get_preferred_node()
         self.assertEqual(preferred_node, self.max_node)
+        self.assertEqual([self.max_node], memory.get_membind_nodes())
+
 
 class TestInfo(unittest.TestCase):
     def setUp(self):
