@@ -41,8 +41,6 @@ class TestSchedule(unittest.TestCase):
 
 class TestInfo(unittest.TestCase):
     def setUp(self):
-        schedule.run_on_all_nodes()
-        schedule.run_on_all_cpus(os.getpid())
         self.max_node = info.get_max_node()
         self.total_cpu_num = os.cpu_count()
 
@@ -62,8 +60,8 @@ class TestInfo(unittest.TestCase):
         print('NUMA num configured cpus: {}'.format(info.get_num_configured_cpus()))
 
     def test_numa_distance(self):
-        for i in range(self.max_node):
-            for j in range(self.max_node):
+        for i in range(self.max_node + 1):
+            for j in range(self.max_node + 1):
                 print('NUMA distance node {} to node {}: {}'.format(i, j, info.numa_distance(i, j)))
 
     def test_numa_hardware_info(self):
@@ -75,7 +73,7 @@ class TestInfo(unittest.TestCase):
             print('NUMA cpu to node: cpu{} -> node{}'.format(i, info.cpu_to_node(i)))
 
     def test_node_to_cpus(self):
-        for i in range(self.max_node):
+        for i in range(self.max_node + 1):
             print('NUMA node to cpus: node{} -> cpus: {}'.format(i, info.node_to_cpus(i)))
 
 
