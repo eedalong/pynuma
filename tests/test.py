@@ -76,6 +76,7 @@ class TestInfo(unittest.TestCase):
         for i in range(self.max_node + 1):
             print('NUMA node to cpus: node{} -> cpus: {}'.format(i, info.node_to_cpus(i)))
 
+
 class TestMemory(unittest.TestCase):
     def setUp(self):
         self.max_node = info.get_max_node()
