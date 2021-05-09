@@ -44,8 +44,8 @@ class TestInfo(unittest.TestCase):
         self.max_node = info.get_max_node()
         self.total_cpu_num = os.cpu_count()
 
-    def test_numa_avaliable(self):
-        assert info.numa_avaliable()
+    def test_numa_available(self):
+        assert info.numa_available()
 
     def test_get_max_node(self):
         print('NUMA max node: {}'.format(info.get_max_node()))
@@ -66,7 +66,8 @@ class TestInfo(unittest.TestCase):
 
     def test_numa_hardware_info(self):
         res = info.numa_hardware_info()
-        print('NUMA hardware info: numa_node_distance: {}, node_cpu_info: {}'.format(res['numa_node_distance'], res['node_cpu_info']))
+        print('NUMA hardware info: numa_node_distance: {}, node_cpu_info: {}'.
+              format(res['numa_node_distance'], res['node_cpu_info']))
 
     def test_cpu_to_node(self):
         for i in range(self.total_cpu_num):
@@ -123,8 +124,3 @@ class TestMemory(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-
-
-
-
-

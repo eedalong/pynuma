@@ -96,5 +96,3 @@ def get_allowed_cpus_num() -> int:
 
 def get_allowed_nodes_num() -> int:
     return LIBNUMA.numa_num_task_nodes()
-
-

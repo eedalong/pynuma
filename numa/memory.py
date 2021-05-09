@@ -1,10 +1,10 @@
 from numa import LIBNUMA
-from typing import List, Optional
-from ctypes import c_longlong, c_int
+from typing import List
+from ctypes import c_longlong
 import numa.utils as numa_utils
 
 __all__ = ["get_allocation_allowed_nodes", "set_interleave_nodes", "set_local_alloc", "set_membind_nodes",
-           "get_membind_nodes", "get_interleave_nodes", "set_membind_policy"]
+           "get_membind_nodes", "get_interleave_nodes"]
 
 
 def get_interleave_nodes() -> List[int]:

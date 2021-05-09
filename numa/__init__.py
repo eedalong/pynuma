@@ -7,12 +7,11 @@ def roundup(a: int, b: int) -> int:
     return (a + b - 1) // b
 
 
-# setup
-
 LIBNUMA = CDLL(find_library("numa"))
 
 MAX_NUMANODES = LIBNUMA.numa_num_possible_nodes()
 NR_CPUS = LIBNUMA.numa_num_possible_cpus()
+
 
 class bitmask_t(Structure):
     _fields_ = [
@@ -107,8 +106,6 @@ LIBNUMA.numa_node_of_cpu.restype = c_int
 LIBNUMA.numa_node_to_cpus.argtypes = [c_int, POINTER(bitmask_t)]
 LIBNUMA.numa_node_to_cpus.restype = c_int
 
-# some global variables
-NUMA_NUM_AVALIABLE: int = LIBNUMA.numa_max_node()
 
 from . import memory
 from . import schedule
