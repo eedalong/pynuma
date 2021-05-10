@@ -15,7 +15,7 @@ API Doc For PyNuma
 | :-----------: | :-----------: | ----------- | ----------- |
 | numa_available      | void       | check whether numa is available       | numa.info.numa_available() |
 | get_max_node      | void       | returns max id of numa nodes      | numa.info.get_max_node() |
-| get_max_possible_node      | void       | returns max possible number of NUMA nodes      | numa.info.get_max_possible_node() |
+| get_max_possible_node      | void       | returns max possible number of numa nodes      | numa.info.get_max_possible_node() |
 | get_num_configured_nodes      | void       | returns the number of memory nodes in the system       | numa.info.get_num_configured_nodes() |
 | get_num_configured_cpus      | void       | returns the number of cpus in the system       | numa.info.get_num_configured_cpus() |
 | numa_distance      | int, int       | returns the distance in the machine topology between two nodes       | numa.info.numa_distance(0, 1) |
