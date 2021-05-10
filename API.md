@@ -4,7 +4,7 @@ API Doc For PyNuma
 
 ### numa.schedule
 
-| api name      | parameters | nodes | use example|
+| api name      | parameters | notes | use example|
 | ----------- | ----------- | ----------- | ----------- |
 | run_on_nodes      | *nodes       | set node affinity for process      | numa.schedule.run_on_nodes(0, 1) |
 
