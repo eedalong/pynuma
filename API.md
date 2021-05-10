@@ -2,7 +2,7 @@ API Doc For PyNuma
 --
 ### numa.memory
 
-| api name                     | parameters | nodes                                                        | use example                                            |
+| api name                     | parameters | notes                                                        | use example                                            |
 | ---------------------------- | ---------- | ------------------------------------------------------------ | ------------------------------------------------------ |
 | get_interleave_nodes         | null       | get the current interleave nodes                             | nodes_get = numa.memory.get_interleave_nodes()         |
 | set_interleave_nodes         | *nodes     | set memory interleave nodes for current task                 | numa.memory.set_interleave_nodes(0, 1)                 |
