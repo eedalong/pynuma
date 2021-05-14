@@ -3,7 +3,7 @@ py-libnuma is python3 interface to numa Linux library so that you can set task a
 level for your process which can help you to improve your code's performence.
 
 # Installation
-    pip install py-libnuma
+    pip install --upgrade py-libnuma
 
 # Usage
 py-libnuma categorize libnuma's apis into 3 groups :`memory`, `schedule` and `info`. You can set your tasks' cpu affinity, memory affinity and get information about your
